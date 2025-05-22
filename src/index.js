@@ -1,9 +1,9 @@
 const express = require("express");
 const { generateCertificate } = require("./generateCertificate");
-
+const cors = require("cors");
 const app = express();
 app.use(express.json());
-
+app.use(cors());
 app.post("/generate-certificate", async (req, res) => {
   try {
     const pdfBuffer = await generateCertificate(req.body);
