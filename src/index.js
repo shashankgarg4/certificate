@@ -8,13 +8,10 @@ app.post("/generate-certificate", async (req, res) => {
   try {
     const pdfBuffer = await generateCertificate(req.body);
     res.setHeader("Content-Type", "application/pdf");
-    res.setHeader(
-      "Content-Disposition",
-      "attachment; filename=certificate.pdf"
-    );
+    res.setHeader("Content-Disposition", "inline; filename=certificate.pdf"); // or "attachment;" to download
     res.send(pdfBuffer);
   } catch (err) {
-    console.error("Certificate generation error:", err); // <--- this helps a lot
+    console.error("Certificate generation error:", err);
     res.status(500).json({ error: "Failed to generate certificate" });
   }
 });
